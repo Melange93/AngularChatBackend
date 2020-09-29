@@ -20,7 +20,7 @@ public class AngularChatService {
         );
     }
 
-    public void insertMessage(ChatMessage chatMessage) {
-        chatMessageRepository.insert(chatMessage);
+    public ChatMessage insertMessage(ChatMessage chatMessage) {
+        return chatMessageRepository.insert(chatMessage);
     }
 }

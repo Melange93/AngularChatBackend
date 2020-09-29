@@ -15,8 +15,8 @@ public class ChatMessageController {
     private final AngularChatService chatService;
 
     @PostMapping("/insert-message")
-    public void insertMessage(@RequestBody ChatMessage chatMessage) {
-        chatService.insertMessage(chatMessage);
+    public ChatMessage insertMessage(@RequestBody ChatMessage chatMessage) {
+        return chatService.insertMessage(chatMessage);
     }
 
     @GetMapping("/messages")
