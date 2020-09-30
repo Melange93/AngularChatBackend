@@ -28,11 +28,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (chatUser == null) {
             throw (new UsernameNotFoundException("Email: " + email + " not found"));
         }
-        User user = new User(chatUser.getUserName(), chatUser.getPassword(),
+        return new User(chatUser.getUserName(), chatUser.getPassword(),
                 chatUser.getRolesInString().stream()
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList()));
-        System.out.println(user.toString());
-        return user;
     }
 }
