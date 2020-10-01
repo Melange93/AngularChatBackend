@@ -21,12 +21,14 @@ public class ChatUser {
     @Indexed(unique = true)
     private String email;
     private String password;
+    private Status status;
     private List<Roles> roles;
 
         public ChatUser(String email, String userName, String password) {
         this.email = email;
         this.userName = userName;
         this.password = password;
+        this.status = Status.OFFLINE;
         this.roles = Collections.singletonList(Roles.USER);
     }
 

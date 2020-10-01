@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -49,7 +51,11 @@ public class AuthController {
             cookieToken.setHttpOnly(true);
             cookieToken.setPath("/");
             response.addCookie(cookieToken);
-            return ResponseEntity.ok(roles);
+
+            Map<Object, Object> model = new HashMap<>();
+            model.put("username", userName);
+
+            return ResponseEntity.ok(model);
         } catch (AuthenticationException | UserNotFoundException e) {
             throw new BadCredentialsException("Invalid userEmail/password supplied");
         }

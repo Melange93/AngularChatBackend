@@ -1,14 +1,12 @@
 package com.reka.lakatos.angularchat.controller;
 
 import com.reka.lakatos.angularchat.document.ChatUser;
+import com.reka.lakatos.angularchat.document.Status;
 import com.reka.lakatos.angularchat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
 @RestController
@@ -24,6 +22,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CREATED).body("User registration was successful.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("This email is already registered.");
+        }
+    }
+
+    @PutMapping("/update-status")
+    public ResponseEntity updateUserStatus(@RequestBody ChatUser user) {
+        try {
+            userService.updateUserStatus(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body("User status update was successful.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Failed to update user status");
         }
     }
 

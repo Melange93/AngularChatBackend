@@ -1,6 +1,7 @@
 package com.reka.lakatos.angularchat.service;
 
 import com.reka.lakatos.angularchat.document.ChatUser;
+import com.reka.lakatos.angularchat.document.Status;
 import com.reka.lakatos.angularchat.exception.UserNotFoundException;
 import com.reka.lakatos.angularchat.repository.ChatUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,16 @@ public class UserService {
         Optional<ChatUser> user = userRepository.findById(name);
         if (user.isPresent()) {
             return user.get();
+        }
+        throw new UserNotFoundException("User not found.");
+    }
+
+    public void updateUserStatus(ChatUser user) {
+        Optional<ChatUser> chatUser = userRepository.findById(user.getUserName());
+        if (chatUser.isPresent()) {
+            ChatUser presentUser = chatUser.get();
+            presentUser.setStatus(user.getStatus());
+            userRepository.save(presentUser);
         }
         throw new UserNotFoundException("User not found.");
     }
