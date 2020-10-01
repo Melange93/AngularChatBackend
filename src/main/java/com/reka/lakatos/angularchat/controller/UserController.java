@@ -1,12 +1,13 @@
 package com.reka.lakatos.angularchat.controller;
 
 import com.reka.lakatos.angularchat.document.ChatUser;
-import com.reka.lakatos.angularchat.document.Status;
 import com.reka.lakatos.angularchat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -35,4 +36,9 @@ public class UserController {
         }
     }
 
+    @GetMapping("/active-users")
+    public ResponseEntity getActiveUsers() {
+        List<ChatUser> activeUsers = userService.getActiveUsers();
+        return ResponseEntity.ok(activeUsers);
+    }
 }

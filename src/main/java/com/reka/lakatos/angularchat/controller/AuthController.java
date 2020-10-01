@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthController {
 
-
     private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;
 
@@ -71,7 +70,6 @@ public class AuthController {
             response.addCookie(cookieToken);
 
             return ResponseEntity.ok("");
-
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Logout failed");
         }

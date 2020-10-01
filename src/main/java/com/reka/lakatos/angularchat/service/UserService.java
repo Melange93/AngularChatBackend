@@ -9,6 +9,7 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,7 +38,12 @@ public class UserService {
             ChatUser presentUser = chatUser.get();
             presentUser.setStatus(user.getStatus());
             userRepository.save(presentUser);
+            return;
         }
         throw new UserNotFoundException("User not found.");
+    }
+
+    public List<ChatUser> getActiveUsers() {
+        return userRepository.findAllByStatusLike(Status.ONLINE);
     }
 }
