@@ -4,9 +4,9 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,12 +17,13 @@ import java.util.stream.Collectors;
 @ToString
 public class ChatUser {
     @Id
-    private String email;
     private String userName;
+    @Indexed(unique = true)
+    private String email;
     private String password;
     private List<Roles> roles;
 
-    public ChatUser(String email, String userName, String password) {
+        public ChatUser(String email, String userName, String password) {
         this.email = email;
         this.userName = userName;
         this.password = password;

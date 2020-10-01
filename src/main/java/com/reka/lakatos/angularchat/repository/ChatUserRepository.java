@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ChatUserRepository extends MongoRepository<ChatUser, String> {
-    ChatUser findChatUserByEmail(String email);
 }

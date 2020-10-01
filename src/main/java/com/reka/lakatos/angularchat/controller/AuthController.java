@@ -1,5 +1,6 @@
 package com.reka.lakatos.angularchat.controller;
 
+import com.reka.lakatos.angularchat.exception.UserNotFoundException;
 import com.reka.lakatos.angularchat.model.UserCredentials;
 import com.reka.lakatos.angularchat.security.JwtTokenServices;
 import lombok.RequiredArgsConstructor;
@@ -33,23 +34,23 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity logIn(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
-            String userEmail = data.getUserEmail();
+            String userName = data.getUserName();
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userEmail, data.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, data.getPassword()));
             List<String> roles = authentication.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
                     .collect(Collectors.toList());
 
 
-            String token = jwtTokenServices.createToken(userEmail, roles);
+            String token = jwtTokenServices.createToken(userName, roles);
             Cookie cookieToken = new Cookie("token", token);
             cookieToken.setMaxAge(60 * 60 * 24);
             cookieToken.setHttpOnly(true);
             cookieToken.setPath("/");
             response.addCookie(cookieToken);
             return ResponseEntity.ok(roles);
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException | UserNotFoundException e) {
             throw new BadCredentialsException("Invalid userEmail/password supplied");
         }
     }

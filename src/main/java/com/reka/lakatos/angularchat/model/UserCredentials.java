@@ -8,6 +8,6 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class UserCredentials {
-    private String userEmail;
+    private String userName;
     private String password;
 }

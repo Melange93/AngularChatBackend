@@ -10,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
 import java.util.stream.Collectors;
 
 @Component
@@ -23,10 +22,10 @@ public class CustomUserDetailsService implements UserDetailsService {
      * Loads the user from the DB and converts it to Spring Security's internal User object
      */
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        ChatUser chatUser = userService.findUserByUserEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        ChatUser chatUser = userService.findUserByUserName(username);
         if (chatUser == null) {
-            throw (new UsernameNotFoundException("Email: " + email + " not found"));
+            throw (new UsernameNotFoundException("User: " + username + " not found"));
         }
         return new User(chatUser.getUserName(), chatUser.getPassword(),
                 chatUser.getRolesInString().stream()
