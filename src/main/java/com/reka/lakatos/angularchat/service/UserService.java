@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +44,8 @@ public class UserService {
         throw new UserNotFoundException("User not found.");
     }
 
-    public List<ChatUser> getActiveUsers() {
-        return userRepository.findAllByStatusLike(Status.ONLINE);
+    public List<String> getActiveUsers() {
+        List<ChatUser> allByStatusLike = userRepository.findAllByStatusLike(Status.ONLINE);
+        return allByStatusLike.stream().map(ChatUser::getUserName).collect(Collectors.toList());
     }
 }

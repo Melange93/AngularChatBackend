@@ -38,7 +38,7 @@ public class UserController {
 
     @GetMapping("/active-users")
     public ResponseEntity getActiveUsers() {
-        List<ChatUser> activeUsers = userService.getActiveUsers();
+        List<String> activeUsers = userService.getActiveUsers();
         return ResponseEntity.ok(activeUsers);
     }
 }
