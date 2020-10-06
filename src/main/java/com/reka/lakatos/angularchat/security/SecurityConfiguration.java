@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/insert-message").authenticated()
                 .antMatchers(HttpMethod.GET, "/messages").authenticated()
                 .antMatchers(HttpMethod.GET, "/active-users").authenticated()
+                .antMatchers("/chat").authenticated()
 
 
                 //.antMatchers("/users/admin/**").hasRole("ADMIN")

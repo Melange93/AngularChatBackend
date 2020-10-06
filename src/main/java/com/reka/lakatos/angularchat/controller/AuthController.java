@@ -52,7 +52,7 @@ public class AuthController {
             response.addCookie(cookieToken);
 
             Map<Object, Object> model = new HashMap<>();
-            model.put("username", userName);
+            model.put("userName", userName);
 
             return ResponseEntity.ok(model);
         } catch (AuthenticationException | UserNotFoundException e) {
